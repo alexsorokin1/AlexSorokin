@@ -125,6 +125,39 @@
   .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
   .skill-tag { font-family: 'Share Tech Mono', monospace; font-size: 10px; color: var(--dim); border: 1px solid rgba(255,255,255,0.07); padding: 3px 8px; letter-spacing: 1px; }
 
+  /* PROJECTS */
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 2px; }
+  .project-card { position: relative; background: var(--bg2); border: 1px solid rgba(245,230,66,0.1); padding: 32px 36px; transition: border-color 0.3s, background 0.3s; overflow: hidden; }
+  .project-card:hover { border-color: rgba(245,230,66,0.35); background: var(--bg3); }
+  .project-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--yellow); opacity: 0; transition: opacity 0.3s; }
+  .project-card:hover::before { opacity: 1; }
+  .project-card::after { content: ''; position: absolute; top: 0; right: 0; width: 20px; height: 20px; background: var(--bg); clip-path: polygon(0 0, 100% 0, 100% 100%); transition: background 0.3s; }
+  .project-card:hover::after { background: var(--bg3); }
+  .project-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px; margin-bottom: 6px; }
+  .project-name { font-family: 'Orbitron', sans-serif; font-size: 16px; font-weight: 700; color: #fff; letter-spacing: 1px; }
+  .project-status { font-family: 'Share Tech Mono', monospace; font-size: 10px; color: var(--cyan); letter-spacing: 2px; text-align: right; flex-shrink: 0; }
+  .project-subtitle { font-family: 'Share Tech Mono', monospace; font-size: 12px; color: var(--yellow); letter-spacing: 1px; margin-top: 2px; margin-bottom: 16px; }
+  .project-desc { list-style: none; display: flex; flex-direction: column; gap: 6px; margin-bottom: 20px; }
+  .project-desc li { font-size: 15px; color: #7A8A9A; padding-left: 16px; position: relative; }
+  .project-desc li::before { content: '›'; position: absolute; left: 0; color: var(--yellow); font-weight: bold; }
+  .project-stack { display: flex; flex-wrap: wrap; gap: 6px; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 16px; }
+  .project-tag { font-family: 'Share Tech Mono', monospace; font-size: 10px; color: var(--dim); border: 1px solid rgba(255,255,255,0.07); padding: 3px 8px; letter-spacing: 1px; }
+
+  /* PROJECT CAROUSEL */
+  .project-carousel { position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; background: #000; border: 1px solid rgba(0,245,255,0.15); margin-bottom: 20px; }
+  .carousel-track { display: flex; height: 100%; transition: transform 0.45s cubic-bezier(0.65,0,0.35,1); }
+  .carousel-slide { flex: 0 0 100%; height: 100%; position: relative; }
+  .carousel-slide img { width: 100%; height: 100%; object-fit: cover; display: block; filter: saturate(0.85) brightness(0.95); }
+  .carousel-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; text-align: center; padding: 16px; background: repeating-linear-gradient(45deg, rgba(0,245,255,0.035) 0 10px, rgba(0,245,255,0.07) 10px 20px); color: var(--dim); font-family: 'Share Tech Mono', monospace; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; }
+  .carousel-slide-caption { position: absolute; left: 10px; bottom: 8px; font-family: 'Share Tech Mono', monospace; font-size: 9px; color: var(--cyan); letter-spacing: 1.5px; text-transform: uppercase; text-shadow: 0 0 6px rgba(0,245,255,0.6); background: rgba(6,8,16,0.55); padding: 3px 8px; z-index: 2; }
+  .carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); width: 30px; height: 30px; background: rgba(6,8,16,0.65); border: 1px solid rgba(0,245,255,0.3); color: var(--cyan); display: flex; align-items: center; justify-content: center; cursor: pointer; font-family: 'Share Tech Mono', monospace; font-size: 13px; z-index: 3; transition: background 0.2s, border-color 0.2s, color 0.2s; }
+  .carousel-btn:hover { background: rgba(0,245,255,0.18); border-color: var(--cyan); color: #fff; }
+  .carousel-prev { left: 8px; }
+  .carousel-next { right: 8px; }
+  .carousel-dots { position: absolute; bottom: 8px; right: 10px; display: flex; gap: 6px; z-index: 3; }
+  .carousel-dot { width: 6px; height: 6px; background: rgba(255,255,255,0.3); cursor: pointer; transition: background 0.2s, transform 0.2s; border: none; padding: 0; }
+  .carousel-dot.active { background: var(--cyan); transform: scale(1.3); }
+
   /* CERTIFICATIONS */
   .certs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2px; }
 
@@ -365,7 +398,8 @@
     .nav-links { display: none; }
     .hero { padding: 100px 20px 60px; }
     section { padding: 70px 20px; }
-    .skills-grid, .certs-grid { grid-template-columns: 1fr; }
+    .skills-grid, .certs-grid, .projects-grid { grid-template-columns: 1fr; }
+    .carousel-btn { width: 26px; height: 26px; font-size: 12px; }
     .status-bar { padding: 8px 20px; }
     .status-bar .status-item:nth-child(2), .status-bar .status-item:nth-child(3) { display: none; }
     .cert-modal { padding: 40px 24px 32px; }
@@ -385,6 +419,7 @@
   <ul class="nav-links">
     <li><a href="#experience">Experience</a></li>
     <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
     <li><a href="#certifications">Certifications</a></li>
   </ul>
 </nav>
@@ -427,7 +462,7 @@
         <div class="exp-date">03/2023 — PRESENT<br><span style="color:var(--cyan);font-size:10px;">● ACTIVE</span></div>
       </div>
       <ul class="exp-desc">
-        <li>Led end-to-end CyberArk (PAM / IDP / EPM) implementations securing privileged access</li>
+        <li>Led end-to-end CyberArk (PAM / IDP / EDR) implementations securing privileged access</li>
         <li>Designed and deployed Cato SASE solutions for secure remote access and network protection</li>
         <li>Applied IAM principles to improve authentication and authorization processes</li>
         <li>Conducted security assessments and designed secure architectures for hybrid environments</li>
@@ -441,10 +476,10 @@
       </div>
       <ul class="exp-desc">
         <li>Provided IT and cybersecurity services for 1,000+ clients</li>
-        <li>Advised on cloud migration, endpoint security, firewall management and configurations</li>
+        <li>Advised on cloud migration, endpoint security, and firewall management and configurations</li>
         <li>Developed custom monitoring dashboards and improved SLA response times</li>
         <li>Evaluation and deployment of cloud security and networking tools</li>
-        <li>Deployed and managed McAfee ePO, Sophos and Sentinel-One endpoint protection</li>
+        <li>Deployed and managed McAfee ePO endpoint protection</li>
       </ul>
     </div>
     <div class="exp-item">
@@ -485,10 +520,99 @@
 
 <div class="divider"><div class="divider-line"></div></div>
 
+<!-- PERSONAL PROJECTS -->
+<section id="projects">
+  <div class="section-header">
+    <span class="section-tag">03</span>
+    <h2 class="section-title">Home Lab // Projects</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="projects-grid">
+
+    <div class="project-card">
+      <div class="project-header">
+        <div class="project-name">Home Server &amp; Media Stack</div>
+        <div class="project-status">● SELF-HOSTED</div>
+      </div>
+      <div class="project-subtitle">// UNRAID</div>
+      <div class="project-carousel" data-carousel>
+        <div class="carousel-track">
+          <div class="carousel-slide">
+            <img src="Unraid.PNG" alt="UnRAID dashboard" onerror="handleImgError(this)">
+            <div class="carousel-slide-caption">UnRAID Dashboard</div>
+          </div>
+          <div class="carousel-slide">
+            <img src="Plex.PNG" alt="Plex library" onerror="handleImgError(this)">
+            <div class="carousel-slide-caption">Plex Media Library</div>
+          </div>
+          <div class="carousel-slide">
+            <img src="AdGuard.PNG" alt="AdGuard Home dashboard" onerror="handleImgError(this)">
+            <div class="carousel-slide-caption">AdGuard Home</div>
+          </div>
+        </div>
+        <button class="carousel-btn carousel-prev" aria-label="Previous image">‹</button>
+        <button class="carousel-btn carousel-next" aria-label="Next image">›</button>
+        <div class="carousel-dots"></div>
+      </div>
+      <ul class="project-desc">
+        <li>Built and maintain a self-hosted UnRAID server for storage, media, and home network services</li>
+        <li>Plex Media Server for streaming a personal media library across devices</li>
+        <li>AdGuard Home for network-wide ad/tracker blocking and DNS filtering</li>
+        <li>Managed storage pools, parity protection, and Docker containers for each service</li>
+      </ul>
+      <div class="project-stack">
+        <span class="project-tag">UnRAID</span>
+        <span class="project-tag">Plex</span>
+        <span class="project-tag">AdGuard Home</span>
+        <span class="project-tag">Docker</span>
+        <span class="project-tag">Storage / Parity</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-header">
+        <div class="project-name">pfSense Firewall on Raspberry Pi 4</div>
+        <div class="project-status">● SELF-HOSTED</div>
+      </div>
+      <div class="project-subtitle">// EDGE FIREWALL / ROUTER</div>
+      <div class="project-carousel" data-carousel>
+        <div class="carousel-track">
+          <div class="carousel-slide">
+            <img src="pfsense.png" alt="pfSense dashboard" onerror="handleImgError(this)">
+            <div class="carousel-slide-caption">pfSense Dashboard</div>
+          </div>
+          <div class="carousel-slide">
+            <img src="raspberry-pi4.jpg" alt="Raspberry Pi 4 pfSense build" onerror="handleImgError(this)">
+            <div class="carousel-slide-caption">Raspberry Pi 4 Build</div>
+          </div>
+        </div>
+        <button class="carousel-btn carousel-prev" aria-label="Previous image">‹</button>
+        <button class="carousel-btn carousel-next" aria-label="Next image">›</button>
+        <div class="carousel-dots"></div>
+      </div>
+      <ul class="project-desc">
+        <li>Built a dedicated pfSense router/firewall running on a Raspberry Pi 4 for the home network</li>
+        <li>Configured firewall rules, NAT, and VLAN segmentation to isolate IoT and lab traffic</li>
+        <li>Applied enterprise networking concepts (segmentation, least-privilege access) at home-lab scale</li>
+      </ul>
+      <div class="project-stack">
+        <span class="project-tag">pfSense</span>
+        <span class="project-tag">Raspberry Pi 4</span>
+        <span class="project-tag">VLANs</span>
+        <span class="project-tag">Firewall Rules</span>
+        <span class="project-tag">NAT</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"><div class="divider-line"></div></div>
+
 <!-- CERTIFICATIONS -->
 <section id="certifications">
   <div class="section-header">
-    <span class="section-tag">03</span>
+    <span class="section-tag">04</span>
     <h2 class="section-title">Certifications</h2>
     <div class="section-line"></div>
   </div>
@@ -680,6 +804,62 @@ document.querySelectorAll('.cert-card[data-cert]').forEach(card => {
 closeBtn.addEventListener('click', closeModal);
 overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+// ── IMAGE FALLBACK (shows a styled placeholder if a project image is missing) ─
+function handleImgError(img) {
+  if (img.dataset.fallbackApplied) return;
+  img.dataset.fallbackApplied = 'true';
+  const placeholder = document.createElement('div');
+  placeholder.className = 'carousel-placeholder';
+  placeholder.textContent = img.alt || 'IMAGE NOT FOUND';
+  img.replaceWith(placeholder);
+}
+
+// ── PROJECT IMAGE CAROUSELS ───────────────────────────────────────────────────
+document.querySelectorAll('[data-carousel]').forEach(carousel => {
+  const track = carousel.querySelector('.carousel-track');
+  const slides = Array.from(carousel.querySelectorAll('.carousel-slide'));
+  const prevBtn = carousel.querySelector('.carousel-prev');
+  const nextBtn = carousel.querySelector('.carousel-next');
+  const dotsWrap = carousel.querySelector('.carousel-dots');
+  let index = 0;
+  let autoplayTimer = null;
+
+  slides.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+    dot.setAttribute('aria-label', `Go to image ${i + 1}`);
+    dot.addEventListener('click', () => goTo(i));
+    dotsWrap.appendChild(dot);
+  });
+  const dots = Array.from(dotsWrap.querySelectorAll('.carousel-dot'));
+
+  function goTo(i) {
+    index = (i + slides.length) % slides.length;
+    track.style.transform = `translateX(-${index * 100}%)`;
+    dots.forEach((d, di) => d.classList.toggle('active', di === index));
+  }
+
+  function startAutoplay() {
+    stopAutoplay();
+    if (slides.length > 1) autoplayTimer = setInterval(() => goTo(index + 1), 5000);
+  }
+  function stopAutoplay() {
+    if (autoplayTimer) clearInterval(autoplayTimer);
+  }
+
+  prevBtn.addEventListener('click', () => { goTo(index - 1); startAutoplay(); });
+  nextBtn.addEventListener('click', () => { goTo(index + 1); startAutoplay(); });
+  carousel.addEventListener('mouseenter', stopAutoplay);
+  carousel.addEventListener('mouseleave', startAutoplay);
+
+  if (slides.length <= 1) {
+    prevBtn.style.display = 'none';
+    nextBtn.style.display = 'none';
+  } else {
+    startAutoplay();
+  }
+});
 
 // ── DATA RAIN ────────────────────────────────────────────────────────────────
 (function() {
