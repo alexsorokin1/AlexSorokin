@@ -66,9 +66,25 @@
     backdrop-filter: blur(8px);
   }
   .nav-logo { font-family: 'Orbitron', sans-serif; font-size: 13px; font-weight: 700; color: var(--yellow); letter-spacing: 3px; text-transform: uppercase; }
+  .nav-right { display: flex; align-items: center; gap: 32px; }
   .nav-links { display: flex; gap: 32px; list-style: none; }
   .nav-links a { font-family: 'Share Tech Mono', monospace; font-size: 11px; color: var(--dim); text-decoration: none; letter-spacing: 2px; text-transform: uppercase; transition: color 0.2s; }
   .nav-links a:hover { color: var(--cyan); }
+  .nav-contact-btn {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--bg);
+    background: var(--cyan);
+    border: 1px solid var(--cyan);
+    padding: 8px 18px;
+    cursor: pointer;
+    clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+    box-shadow: 0 0 12px rgba(0,245,255,0.3);
+  }
+  .nav-contact-btn:hover { background: transparent; color: var(--cyan); box-shadow: 0 0 18px rgba(0,245,255,0.5); }
 
   /* HERO */
   .hero { position: relative; z-index: 1; min-height: 100vh; display: flex; align-items: center; padding: 120px 40px 80px; overflow: hidden; }
@@ -353,6 +369,183 @@
     z-index: 1;
   }
 
+  /* ── CONTACT MODAL ──────────────────────────────────────────────── */
+  .contact-modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 10001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(6,8,16,0.9);
+    backdrop-filter: blur(12px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+  .contact-modal-overlay.open { opacity: 1; pointer-events: all; }
+
+  .contact-modal {
+    position: relative;
+    background: var(--bg2);
+    border: 1px solid rgba(245,230,66,0.3);
+    padding: 44px 48px 40px;
+    max-width: 480px;
+    width: 90vw;
+    max-height: 88vh;
+    overflow-y: auto;
+    transform: scale(0.85) translateY(20px);
+    transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), opacity 0.3s;
+    opacity: 0;
+  }
+  .contact-modal-overlay.open .contact-modal { transform: scale(1) translateY(0); opacity: 1; }
+
+  .contact-modal::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 28px; height: 28px;
+    background: var(--bg);
+    clip-path: polygon(0 0, 100% 0, 100% 100%);
+  }
+  .contact-modal::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 28px; height: 28px;
+    background: var(--bg);
+    clip-path: polygon(0 0, 0 100%, 100% 100%);
+  }
+  .contact-modal-accent {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--yellow), var(--magenta), transparent);
+  }
+  .contact-modal-scanline {
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(245,230,66,0.015) 3px, rgba(245,230,66,0.015) 4px);
+    pointer-events: none;
+    z-index: 1;
+  }
+  .contact-modal-close {
+    position: absolute;
+    top: 16px; right: 20px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    color: var(--dim);
+    letter-spacing: 2px;
+    cursor: pointer;
+    background: none;
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 4px 10px;
+    transition: color 0.2s, border-color 0.2s;
+    z-index: 2;
+  }
+  .contact-modal-close:hover { color: var(--magenta); border-color: var(--magenta); }
+
+  .contact-modal-tag {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    color: var(--magenta);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .contact-modal-tag::before { content: ''; width: 20px; height: 1px; background: var(--magenta); }
+  .contact-modal-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(20px, 3.5vw, 26px);
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.2;
+    margin-bottom: 28px;
+  }
+
+  .contact-modal-channels { display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+  .contact-channel {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 1px;
+    color: var(--dim);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .contact-channel .dot { width: 6px; height: 6px; background: var(--yellow); clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); flex-shrink: 0; }
+  .contact-channel a, .contact-channel span.channel-val { color: var(--cyan); text-decoration: none; }
+  .contact-channel:hover, .contact-channel:hover a { color: var(--yellow); }
+
+  .contact-form-divider {
+    height: 1px;
+    background: linear-gradient(90deg, rgba(245,230,66,0.25), transparent);
+    margin-bottom: 24px;
+  }
+
+  .contact-field { margin-bottom: 20px; }
+  .contact-label {
+    display: block;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    color: var(--yellow);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .contact-label::before { content: '// '; color: var(--dim); }
+  .contact-input, .contact-textarea {
+    width: 100%;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(0,245,255,0.15);
+    color: var(--text);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 15px;
+    padding: 10px 12px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .contact-input:focus, .contact-textarea:focus {
+    outline: none;
+    border-color: var(--cyan);
+    box-shadow: 0 0 10px rgba(0,245,255,0.2);
+  }
+  .contact-textarea { resize: vertical; min-height: 96px; font-family: 'Rajdhani', sans-serif; }
+
+  .contact-submit-btn {
+    width: 100%;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--bg);
+    background: var(--yellow);
+    border: 1px solid var(--yellow);
+    padding: 13px 20px;
+    cursor: pointer;
+    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+    box-shadow: 0 0 14px rgba(245,230,66,0.25);
+  }
+  .contact-submit-btn:hover { background: transparent; color: var(--yellow); box-shadow: 0 0 20px rgba(245,230,66,0.4); }
+
+  .contact-form-note {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    color: var(--dim);
+    letter-spacing: 1px;
+    text-align: center;
+    margin-top: 14px;
+  }
+
+  @media (max-width: 768px) {
+    .contact-modal { padding: 40px 24px 32px; }
+  }
+
   /* GLITCH */
   @keyframes glitch {
     0%, 100% { clip-path: inset(0 0 100% 0); transform: translate(0); }
@@ -403,6 +596,7 @@
     .status-bar { padding: 8px 20px; }
     .status-bar .status-item:nth-child(2), .status-bar .status-item:nth-child(3) { display: none; }
     .cert-modal { padding: 40px 24px 32px; }
+    .nav-contact-btn { padding: 7px 14px; font-size: 10px; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -416,12 +610,15 @@
 <!-- NAV -->
 <nav>
   <div class="nav-logo">A.Sorokin // [CSE-01]</div>
-  <ul class="nav-links">
-    <li><a href="#experience">Experience</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#certifications">Certifications</a></li>
-  </ul>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#certifications">Certifications</a></li>
+    </ul>
+    <button class="nav-contact-btn" id="navContactBtn">Contact Me</button>
+  </div>
 </nav>
 
 <!-- HERO -->
@@ -720,6 +917,43 @@
   </div>
 </div>
 
+<!-- CONTACT MODAL -->
+<div class="contact-modal-overlay" id="contactModalOverlay" role="dialog" aria-modal="true" aria-labelledby="contactModalTitle">
+  <div class="contact-modal" id="contactModal">
+    <div class="contact-modal-accent"></div>
+    <div class="contact-modal-scanline"></div>
+    <button class="contact-modal-close" id="contactModalClose">ESC ✕</button>
+
+    <div class="contact-modal-tag">OPEN_CHANNEL</div>
+    <h3 class="contact-modal-title" id="contactModalTitle">Get In Touch</h3>
+
+    <div class="contact-modal-channels">
+      <a class="contact-channel" href="mailto:AlexSorokin165@gmail.com"><span class="dot"></span>AlexSorokin165@gmail.com</a>
+      <div class="contact-channel"><span class="dot"></span><span class="channel-val">052-4157863</span></div>
+      <a class="contact-channel" href="https://linkedin.com/in/alexsorokin1" target="_blank"><span class="dot"></span>linkedin/alexsorokin1</a>
+    </div>
+
+    <div class="contact-form-divider"></div>
+
+    <form id="contactForm">
+      <div class="contact-field">
+        <label class="contact-label" for="contactName">Name</label>
+        <input class="contact-input" type="text" id="contactName" name="name" required>
+      </div>
+      <div class="contact-field">
+        <label class="contact-label" for="contactEmail">Email</label>
+        <input class="contact-input" type="email" id="contactEmail" name="email" required>
+      </div>
+      <div class="contact-field">
+        <label class="contact-label" for="contactMessage">Message</label>
+        <textarea class="contact-textarea" id="contactMessage" name="message" required></textarea>
+      </div>
+      <button type="submit" class="contact-submit-btn">Transmit Message</button>
+      <div class="contact-form-note">Opens your email client, addressed to AlexSorokin165@gmail.com</div>
+    </form>
+  </div>
+</div>
+
 <script>
 // ── CERT DATA ────────────────────────────────────────────────────────────────
 const CERTS = {
@@ -804,6 +1038,38 @@ document.querySelectorAll('.cert-card[data-cert]').forEach(card => {
 closeBtn.addEventListener('click', closeModal);
 overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+// ── CONTACT MODAL ─────────────────────────────────────────────────────────────
+const contactOverlay  = document.getElementById('contactModalOverlay');
+const contactCloseBtn = document.getElementById('contactModalClose');
+const contactForm     = document.getElementById('contactForm');
+const navContactBtn   = document.getElementById('navContactBtn');
+
+function openContactModal() {
+  contactOverlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  document.getElementById('contactName').focus();
+}
+
+function closeContactModal() {
+  contactOverlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+navContactBtn.addEventListener('click', openContactModal);
+contactCloseBtn.addEventListener('click', closeContactModal);
+contactOverlay.addEventListener('click', e => { if (e.target === contactOverlay) closeContactModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && contactOverlay.classList.contains('open')) closeContactModal(); });
+
+contactForm.addEventListener('submit', e => {
+  e.preventDefault();
+  const name = document.getElementById('contactName').value.trim();
+  const email = document.getElementById('contactEmail').value.trim();
+  const message = document.getElementById('contactMessage').value.trim();
+  const subject = `Portfolio Contact from ${name}`;
+  const body = `${message}\n\n— ${name} (${email})`;
+  window.location.href = `mailto:AlexSorokin165@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+});
 
 // ── IMAGE FALLBACK (shows a styled placeholder if a project image is missing) ─
 function handleImgError(img) {
