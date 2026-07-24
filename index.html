@@ -837,7 +837,8 @@
         <li>Diagnosed and fixed a self-feedback loop where the assistant transcribed and replied to its own voice -- solved via mic gating, server-side VAD sensitivity tuning, and using the API's official interruption signal instead of guessing at it from transcripts</li>
         <li>Gave it sandboxed self-editing capability: it can read and rewrite its own source files through function calling, restricted to an allow-listed directory with path-traversal protection and automatic backups before every write</li>
         <li>Re-architected audio I/O to run through the browser instead of a local audio library -- mic capture via getUserMedia, in-browser downsampling, and gapless playback via the Web Audio API, all riding over one WebSocket</li>
-        <li>Designed the reactive visualizer above: a face built from glitching cipher characters, its mouth and expression driven by real audio amplitude</li>
+        <li>Added real-time vision: a browser-captured camera feed streams to the model over the same WebSocket, so Alfred can identify objects, read text, or answer questions about whatever's held up to the camera, as a natural part of the conversation</li>
+        <li>Designed the reactive visualizer above: a Tony Stark-style HUD with rotating targeting rings and a pulsing arc-reactor core, driven live by conversation state and real audio amplitude</li>
       </ul>
       <div class="project-stack">
         <span class="project-tag">Python / asyncio</span>
@@ -846,6 +847,7 @@
         <span class="project-tag">ONNX / PyTorch</span>
         <span class="project-tag">WebSocket</span>
         <span class="project-tag">Web Audio API</span>
+        <span class="project-tag">getUserMedia / Vision</span>
       </div>
     </div>
 
@@ -935,6 +937,15 @@
       </div>
     </div>
 
+    <div class="cert-card" data-cert="winserver">
+      <div class="cert-icon"><img src="John-Bryce.png" alt="John Bryce"></div>
+      <div class="cert-info">
+        <div class="cert-name">Installing and Configuring Windows Server</div>
+        <div class="cert-issuer">John Bryce (Matrix / NESS)</div>
+        <div class="cert-date">// SEP 2017</div>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -957,7 +968,7 @@
 <div class="status-bar">
   <span class="status-item">SYS:<span class="val"> ONLINE</span></span>
   <span class="status-item">THREAT_LEVEL:<span class="warn"> LOW</span></span>
-  <span class="status-item">CERTS:<span class="val"> 8 ACTIVE</span></span>
+  <span class="status-item">CERTS:<span class="val"> 9 ACTIVE</span></span>
   <span class="status-item">LOC:<span class="val"> IL</span></span>
 </div>
 
@@ -1064,6 +1075,12 @@ const CERTS = {
     title:  'DevOps Certification',
     issuer: 'DevOps Experts',
     meta:   [['Issued','December 2019'],['Type','Course Completion'],['Domain','DevOps']]
+  },
+  winserver: {
+    img:    'John-Bryce.png',
+    title:  'Installing and Configuring Windows Server',
+    issuer: 'John Bryce (Matrix / NESS)',
+    meta:   [['Issued','September 2017'],['Type','Course Completion'],['Study Hours','40'],['Domain','Windows Server Administration']]
   }
 };
 
