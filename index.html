@@ -159,8 +159,9 @@
   .project-stack { display: flex; flex-wrap: wrap; gap: 6px; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 16px; margin-top: auto; }
   .project-tag { font-family: 'Share Tech Mono', monospace; font-size: 11px; color: var(--dim); border: 1px solid rgba(255,255,255,0.07); padding: 3px 8px; letter-spacing: 1px; }
 
-  /* collapsed long project descriptions */
-  .project-desc li.desc-hidden { display: none; }
+  /* uniform cards: every card face shows only its first 3 bullets;
+     the full write-up lives in the project modal */
+  .project-card .project-desc li:nth-child(n+4) { display: none; }
   .project-more-btn {
     display: block;
     width: 100%;
@@ -178,8 +179,91 @@
     transition: background 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s;
   }
   .project-more-btn:hover { background: rgba(0,245,255,0.12); border-color: var(--cyan); box-shadow: 0 0 12px rgba(0,245,255,0.25); }
-  .project-more-btn.open { color: var(--yellow); border-color: rgba(245,230,66,0.4); background: rgba(245,230,66,0.05); }
-  .project-more-btn.open:hover { border-color: var(--yellow); box-shadow: 0 0 12px rgba(245,230,66,0.25); }
+
+  /* ── PROJECT MODAL (same treatment as the cert modal) ─────────────── */
+  .project-modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 10001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(6,8,16,0.9);
+    backdrop-filter: blur(12px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+  .project-modal-overlay.open { opacity: 1; pointer-events: all; }
+
+  .project-modal {
+    position: relative;
+    background: var(--bg2);
+    border: 1px solid rgba(0,245,255,0.25);
+    padding: 48px 52px 40px;
+    max-width: 720px;
+    width: 92vw;
+    max-height: 86vh;
+    overflow-y: auto;
+    transform: scale(0.85) translateY(20px);
+    transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), opacity 0.3s;
+    opacity: 0;
+  }
+  .project-modal-overlay.open .project-modal { transform: scale(1) translateY(0); opacity: 1; }
+
+  .project-modal::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 28px; height: 28px;
+    background: var(--bg);
+    clip-path: polygon(0 0, 100% 0, 100% 100%);
+  }
+  .project-modal::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 28px; height: 28px;
+    background: var(--bg);
+    clip-path: polygon(0 0, 0 100%, 100% 100%);
+  }
+
+  .project-modal-status {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    color: var(--cyan);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .project-modal-status::before { content: ''; width: 20px; height: 1px; background: var(--cyan); }
+
+  .project-modal-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(18px, 3.5vw, 24px);
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 1px;
+    line-height: 1.25;
+    margin-bottom: 6px;
+  }
+
+  .project-modal-subtitle {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 13px;
+    color: var(--yellow);
+    letter-spacing: 1px;
+    margin-bottom: 26px;
+  }
+
+  .project-modal .project-desc { gap: 10px; margin-bottom: 26px; }
+
+  @media (max-width: 768px) {
+    .project-modal { padding: 40px 24px 32px; }
+  }
 
   /* PROJECT CAROUSEL */
   .project-carousel { position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; background: #000; border: 1px solid rgba(0,245,255,0.15); margin-bottom: 20px; }
@@ -1011,6 +1095,20 @@
   </div>
 </div>
 
+<!-- PROJECT MODAL -->
+<div class="project-modal-overlay" id="projectModalOverlay" role="dialog" aria-modal="true" aria-labelledby="projectModalTitle">
+  <div class="project-modal" id="projectModal">
+    <div class="cert-modal-accent"></div>
+    <div class="cert-modal-scanline"></div>
+    <button class="cert-modal-close" id="projectModalClose">ESC ✕</button>
+    <div class="project-modal-status" id="projectModalStatus"></div>
+    <div class="project-modal-title" id="projectModalTitle"></div>
+    <div class="project-modal-subtitle" id="projectModalSubtitle"></div>
+    <ul class="project-desc" id="projectModalDesc"></ul>
+    <div class="project-stack" id="projectModalStack"></div>
+  </div>
+</div>
+
 <!-- CONTACT MODAL -->
 <div class="contact-modal-overlay" id="contactModalOverlay" role="dialog" aria-modal="true" aria-labelledby="contactModalTitle">
   <div class="contact-modal" id="contactModal">
@@ -1262,29 +1360,41 @@ document.querySelectorAll('[data-carousel]').forEach(carousel => {
   }
 });
 
-// ── PROJECT "CLICK FOR MORE" (clamps long descriptions so cards stay even) ───
+// ── PROJECT MODAL (cards stay uniform; full brief pops up like the certs) ────
+const projOverlay  = document.getElementById('projectModalOverlay');
+const projCloseBtn = document.getElementById('projectModalClose');
+
+function openProjectModal(card) {
+  const get = sel => { const el = card.querySelector(sel); return el ? el.textContent : ''; };
+  document.getElementById('projectModalStatus').textContent   = get('.project-status');
+  document.getElementById('projectModalTitle').textContent    = get('.project-name');
+  document.getElementById('projectModalSubtitle').textContent = get('.project-subtitle');
+  document.getElementById('projectModalDesc').innerHTML  = card.querySelector('.project-desc').innerHTML;
+  document.getElementById('projectModalStack').innerHTML = card.querySelector('.project-stack').innerHTML;
+  projOverlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  projCloseBtn.focus();
+}
+
+function closeProjectModal() {
+  projOverlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
 document.querySelectorAll('.project-card').forEach(card => {
   const desc = card.querySelector('.project-desc');
   if (!desc) return;
-  const VISIBLE = 4;
-  const extra = Array.from(desc.querySelectorAll('li')).slice(VISIBLE);
-  if (!extra.length) return;
-
-  extra.forEach(li => li.classList.add('desc-hidden'));
-
+  const hidden = Math.max(0, desc.querySelectorAll('li').length - 3);
   const btn = document.createElement('button');
   btn.className = 'project-more-btn';
-  btn.textContent = `▾ Click for more [+${extra.length}]`;
-  btn.setAttribute('aria-expanded', 'false');
+  btn.textContent = hidden > 0 ? `⊕ View Full Brief [+${hidden}]` : '⊕ View Full Brief';
   desc.insertAdjacentElement('afterend', btn);
-
-  btn.addEventListener('click', () => {
-    const open = btn.classList.toggle('open');
-    extra.forEach(li => li.classList.toggle('desc-hidden', !open));
-    btn.textContent = open ? '▴ Show less' : `▾ Click for more [+${extra.length}]`;
-    btn.setAttribute('aria-expanded', String(open));
-  });
+  btn.addEventListener('click', () => openProjectModal(card));
 });
+
+projCloseBtn.addEventListener('click', closeProjectModal);
+projOverlay.addEventListener('click', e => { if (e.target === projOverlay) closeProjectModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && projOverlay.classList.contains('open')) closeProjectModal(); });
 
 // ── ALFRED DEMO WIDGET (self-contained, no backend -- auto-cycles through
 // sleeping/listening/speaking to showcase the visualizer's look) ─────────────
