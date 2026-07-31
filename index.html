@@ -26,7 +26,7 @@
     background: var(--bg);
     color: var(--text);
     font-family: 'Rajdhani', sans-serif;
-    font-size: 16px;
+    font-size: 17px;
     line-height: 1.6;
     overflow-x: hidden;
   }
@@ -68,7 +68,7 @@
   .nav-logo { font-family: 'Orbitron', sans-serif; font-size: 13px; font-weight: 700; color: var(--yellow); letter-spacing: 3px; text-transform: uppercase; }
   .nav-right { display: flex; align-items: center; gap: 32px; }
   .nav-links { display: flex; gap: 32px; list-style: none; }
-  .nav-links a { font-family: 'Share Tech Mono', monospace; font-size: 11px; color: var(--dim); text-decoration: none; letter-spacing: 2px; text-transform: uppercase; transition: color 0.2s; }
+  .nav-links a { font-family: 'Share Tech Mono', monospace; font-size: 12px; color: var(--dim); text-decoration: none; letter-spacing: 2px; text-transform: uppercase; transition: color 0.2s; }
   .nav-links a:hover { color: var(--cyan); }
   .nav-contact-btn {
     font-family: 'Share Tech Mono', monospace;
@@ -100,9 +100,9 @@
   .hero-name .line1 { display: block; }
   .hero-name .line2 { display: block; color: transparent; -webkit-text-stroke: 1.5px var(--yellow); }
   .hero-title { font-family: 'Rajdhani', sans-serif; font-size: clamp(18px, 3vw, 28px); font-weight: 600; color: var(--yellow); letter-spacing: 6px; text-transform: uppercase; margin-top: 16px; margin-bottom: 32px; }
-  .hero-summary { max-width: 580px; font-size: 17px; color: #8899AA; line-height: 1.7; margin-bottom: 48px; border-left: 2px solid rgba(0,245,255,0.3); padding-left: 20px; }
+  .hero-summary { max-width: 580px; font-size: 19px; color: #8899AA; line-height: 1.7; margin-bottom: 48px; border-left: 2px solid rgba(0,245,255,0.3); padding-left: 20px; }
   .hero-contacts { display: flex; gap: 24px; flex-wrap: wrap; }
-  .contact-item { font-family: 'Share Tech Mono', monospace; font-size: 12px; color: var(--dim); display: flex; align-items: center; gap: 8px; letter-spacing: 1px; }
+  .contact-item { font-family: 'Share Tech Mono', monospace; font-size: 13px; color: var(--dim); display: flex; align-items: center; gap: 8px; letter-spacing: 1px; }
   .contact-item .dot { width: 6px; height: 6px; background: var(--cyan); clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); flex-shrink: 0; }
   .contact-item a { color: var(--cyan); text-decoration: none; }
   .contact-item a:hover { color: var(--yellow); }
@@ -123,11 +123,11 @@
   .exp-item::after { content: ''; position: absolute; top: 0; right: 0; width: 20px; height: 20px; background: var(--bg); clip-path: polygon(0 0, 100% 0, 100% 100%); transition: background 0.3s; }
   .exp-item:hover::after { background: var(--bg3); }
   .exp-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px; margin-bottom: 8px; }
-  .exp-role { font-family: 'Orbitron', sans-serif; font-size: 16px; font-weight: 700; color: #fff; letter-spacing: 1px; }
-  .exp-company { font-family: 'Share Tech Mono', monospace; font-size: 12px; color: var(--yellow); letter-spacing: 2px; margin-top: 4px; }
-  .exp-date { font-family: 'Share Tech Mono', monospace; font-size: 11px; color: var(--dim); letter-spacing: 1px; text-align: right; flex-shrink: 0; }
+  .exp-role { font-family: 'Orbitron', sans-serif; font-size: 17px; font-weight: 700; color: #fff; letter-spacing: 1px; }
+  .exp-company { font-family: 'Share Tech Mono', monospace; font-size: 13px; color: var(--yellow); letter-spacing: 2px; margin-top: 4px; }
+  .exp-date { font-family: 'Share Tech Mono', monospace; font-size: 12px; color: var(--dim); letter-spacing: 1px; text-align: right; flex-shrink: 0; }
   .exp-desc { margin-top: 16px; list-style: none; display: flex; flex-direction: column; gap: 6px; }
-  .exp-desc li { font-size: 15px; color: #7A8A9A; padding-left: 16px; position: relative; }
+  .exp-desc li { font-size: 16.5px; color: #7A8A9A; padding-left: 16px; position: relative; }
   .exp-desc li::before { content: '›'; position: absolute; left: 0; color: var(--cyan); font-weight: bold; }
 
   /* SKILLS */
@@ -136,10 +136,10 @@
   .skill-card:hover { border-color: rgba(245,230,66,0.3); background: var(--bg3); }
   .skill-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--yellow), transparent); opacity: 0; transition: opacity 0.3s; }
   .skill-card:hover::before { opacity: 1; }
-  .skill-category { font-family: 'Share Tech Mono', monospace; font-size: 10px; color: var(--yellow); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 12px; }
-  .skill-name { font-family: 'Orbitron', sans-serif; font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 14px; }
+  .skill-category { font-family: 'Share Tech Mono', monospace; font-size: 11px; color: var(--yellow); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 12px; }
+  .skill-name { font-family: 'Orbitron', sans-serif; font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 14px; }
   .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
-  .skill-tag { font-family: 'Share Tech Mono', monospace; font-size: 10px; color: var(--dim); border: 1px solid rgba(255,255,255,0.07); padding: 3px 8px; letter-spacing: 1px; }
+  .skill-tag { font-family: 'Share Tech Mono', monospace; font-size: 11px; color: var(--dim); border: 1px solid rgba(255,255,255,0.07); padding: 3px 8px; letter-spacing: 1px; }
 
   /* PROJECTS */
   .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 2px; }
@@ -150,14 +150,14 @@
   .project-card::after { content: ''; position: absolute; top: 0; right: 0; width: 20px; height: 20px; background: var(--bg); clip-path: polygon(0 0, 100% 0, 100% 100%); transition: background 0.3s; }
   .project-card:hover::after { background: var(--bg3); }
   .project-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px; margin-bottom: 6px; }
-  .project-name { font-family: 'Orbitron', sans-serif; font-size: 16px; font-weight: 700; color: #fff; letter-spacing: 1px; }
-  .project-status { font-family: 'Share Tech Mono', monospace; font-size: 10px; color: var(--cyan); letter-spacing: 2px; text-align: right; flex-shrink: 0; }
-  .project-subtitle { font-family: 'Share Tech Mono', monospace; font-size: 12px; color: var(--yellow); letter-spacing: 1px; margin-top: 2px; margin-bottom: 16px; }
+  .project-name { font-family: 'Orbitron', sans-serif; font-size: 17px; font-weight: 700; color: #fff; letter-spacing: 1px; }
+  .project-status { font-family: 'Share Tech Mono', monospace; font-size: 11px; color: var(--cyan); letter-spacing: 2px; text-align: right; flex-shrink: 0; }
+  .project-subtitle { font-family: 'Share Tech Mono', monospace; font-size: 13px; color: var(--yellow); letter-spacing: 1px; margin-top: 2px; margin-bottom: 16px; }
   .project-desc { list-style: none; display: flex; flex-direction: column; gap: 6px; margin-bottom: 20px; }
-  .project-desc li { font-size: 15px; color: #7A8A9A; padding-left: 16px; position: relative; }
+  .project-desc li { font-size: 16.5px; color: #7A8A9A; padding-left: 16px; position: relative; }
   .project-desc li::before { content: '›'; position: absolute; left: 0; color: var(--yellow); font-weight: bold; }
   .project-stack { display: flex; flex-wrap: wrap; gap: 6px; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 16px; }
-  .project-tag { font-family: 'Share Tech Mono', monospace; font-size: 10px; color: var(--dim); border: 1px solid rgba(255,255,255,0.07); padding: 3px 8px; letter-spacing: 1px; }
+  .project-tag { font-family: 'Share Tech Mono', monospace; font-size: 11px; color: var(--dim); border: 1px solid rgba(255,255,255,0.07); padding: 3px 8px; letter-spacing: 1px; }
 
   /* PROJECT CAROUSEL */
   .project-carousel { position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; background: #000; border: 1px solid rgba(0,245,255,0.15); margin-bottom: 20px; }
@@ -231,9 +231,9 @@
   .cert-icon img { width: 100%; height: 100%; object-fit: contain; filter: saturate(0.7) brightness(1.1); transition: filter 0.3s; }
   .cert-card:hover .cert-icon img { filter: saturate(1) brightness(1.4); }
   .cert-info { flex: 1; min-width: 0; }
-  .cert-name { font-family: 'Rajdhani', sans-serif; font-size: 16px; font-weight: 700; color: #fff; line-height: 1.2; margin-bottom: 6px; }
-  .cert-issuer { font-family: 'Share Tech Mono', monospace; font-size: 10px; color: var(--magenta); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
-  .cert-date { font-family: 'Share Tech Mono', monospace; font-size: 10px; color: var(--dim); letter-spacing: 1px; }
+  .cert-name { font-family: 'Rajdhani', sans-serif; font-size: 17px; font-weight: 700; color: #fff; line-height: 1.2; margin-bottom: 6px; }
+  .cert-issuer { font-family: 'Share Tech Mono', monospace; font-size: 11px; color: var(--magenta); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+  .cert-date { font-family: 'Share Tech Mono', monospace; font-size: 11px; color: var(--dim); letter-spacing: 1px; }
 
   /* ── CERT MODAL ─────────────────────────────────────────────────── */
   .cert-modal-overlay {
@@ -580,7 +580,7 @@
 
   /* STATUS BAR */
   .status-bar { position: fixed; bottom: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 8px 40px; background: rgba(6,8,16,0.9); border-top: 1px solid rgba(0,245,255,0.1); backdrop-filter: blur(8px); }
-  .status-item { font-family: 'Share Tech Mono', monospace; font-size: 9px; color: var(--dim); letter-spacing: 2px; text-transform: uppercase; }
+  .status-item { font-family: 'Share Tech Mono', monospace; font-size: 10px; color: var(--dim); letter-spacing: 2px; text-transform: uppercase; }
   .status-item .val { color: var(--cyan); }
   .status-item .warn { color: var(--yellow); }
 
@@ -594,7 +594,7 @@
   .live-dot::before { content: ''; width: 8px; height: 8px; background: var(--cyan); border-radius: 50%; flex-shrink: 0; }
 
   footer { position: relative; z-index: 1; text-align: center; padding: 60px 40px 80px; border-top: 1px solid rgba(255,255,255,0.04); }
-  footer p { font-family: 'Share Tech Mono', monospace; font-size: 10px; color: var(--dim); letter-spacing: 2px; }
+  footer p { font-family: 'Share Tech Mono', monospace; font-size: 11px; color: var(--dim); letter-spacing: 2px; }
 
   /* AURORA */
   .aurora-blob { position: absolute; border-radius: 50%; filter: blur(80px); mix-blend-mode: screen; }
@@ -822,32 +822,36 @@
 
     <div class="project-card">
       <div class="project-header">
-        <div class="project-name">Alfred // Voice Assistant</div>
-        <div class="project-status">● PERSONAL AI BUILD</div>
+        <div class="project-name">Alfred // AI Voice Assistant</div>
+        <div class="project-status">● SELF-HOSTED</div>
       </div>
-      <div class="project-subtitle">// GEMINI LIVE API + CUSTOM WAKE WORD</div>
+      <div class="project-subtitle">// GEMINI LIVE API + FASTAPI + CUSTOM WAKE WORD</div>
       <div class="alfred-demo-box">
         <canvas id="alfredDemoCanvas"></canvas>
         <div class="alfred-demo-label">Alfred // Auto-Cycling Preview</div>
         <div class="alfred-demo-note">Demo Animation</div>
       </div>
       <ul class="project-desc">
-        <li>Built a low-latency voice assistant on Gemini's native audio-to-audio Live API -- one socket handles listening and speaking, skipping the usual STT → LLM → TTS pipeline entirely</li>
-        <li>Trained a custom "Alfred" wake-word model from scratch: synthetic TTS-generated speech samples, noise/room-impulse augmentation, and a small classifier exported to ONNX via openWakeWord</li>
-        <li>Diagnosed and fixed a self-feedback loop where the assistant transcribed and replied to its own voice -- solved via mic gating, server-side VAD sensitivity tuning, and using the API's official interruption signal instead of guessing at it from transcripts</li>
-        <li>Gave it sandboxed self-editing capability: it can read and rewrite its own source files through function calling, restricted to an allow-listed directory with path-traversal protection and automatic backups before every write</li>
-        <li>Re-architected audio I/O to run through the browser instead of a local audio library -- mic capture via getUserMedia, in-browser downsampling, and gapless playback via the Web Audio API, all riding over one WebSocket</li>
-        <li>Added real-time vision: a browser-captured camera feed streams to the model over the same WebSocket, so Alfred can identify objects, read text, or answer questions about whatever's held up to the camera, as a natural part of the conversation</li>
-        <li>Designed the reactive visualizer above: a Tony Stark-style HUD with rotating targeting rings and a pulsing arc-reactor core, driven live by conversation state and real audio amplitude</li>
+        <li>Built a low-latency voice + video assistant on Gemini's native audio-to-audio Live API -- one WebSocket handles listening, watching, and speaking, skipping the usual STT → LLM → TTS pipeline entirely</li>
+        <li>Re-architected from a local-mic script into a Dockerized client-server system: a FastAPI backend runs wake-word detection and the Gemini session, while the browser acts as mic, camera, and speaker -- deployed on the UnRAID server, usable from any device on the network</li>
+        <li>Trained a custom "Alfred" wake-word model from scratch: synthetic TTS-generated speech samples, noise/room-impulse augmentation, and a small classifier exported to ONNX via openWakeWord -- now running server-side against the browser's mic stream</li>
+        <li>Gave it real long-term memory: every conversation lands in SQLite, a background model distills durable facts injected into future sessions, and in-conversation remember/forget function tools let Alfred manage what he knows -- all reviewable in a "What Alfred Knows" panel</li>
+        <li>Built a guided interview-practice mode: Alfred conducts behavioural, technical, or HR mock interviews in character -- one question at a time with coaching after each answer, including presence and body-language feedback when the camera is on</li>
+        <li>Hardened it for network exposure: removed the earlier self-code-editing tools when the assistant became a hosted service (a network-facing app shouldn't rewrite itself), scoped it down to narrow memory-only tools, and added auto-generated self-signed TLS so mic/camera capture works securely from any LAN device</li>
+        <li>Diagnosed and fixed a self-feedback loop where the assistant replied to its own voice -- solved via mic gating, server-side VAD sensitivity tuning, and the API's official interruption signal</li>
+        <li>Designed the reactive visualizer above: a HUD driven live by conversation state and real audio amplitude</li>
       </ul>
       <div class="project-stack">
         <span class="project-tag">Python / asyncio</span>
+        <span class="project-tag">FastAPI</span>
+        <span class="project-tag">Docker / UnRAID</span>
         <span class="project-tag">Gemini Live API</span>
+        <span class="project-tag">SQLite</span>
         <span class="project-tag">openWakeWord</span>
         <span class="project-tag">ONNX / PyTorch</span>
         <span class="project-tag">WebSocket</span>
         <span class="project-tag">Web Audio API</span>
-        <span class="project-tag">getUserMedia / Vision</span>
+        <span class="project-tag">TLS</span>
       </div>
     </div>
 
@@ -951,7 +955,7 @@
 
 <!-- FOOTER -->
 <footer>
-  <p>ALEX SOROKIN &nbsp;//&nbsp; CYBER SECURITY ENGINEER &nbsp;//&nbsp; ISRAEL &nbsp;//&nbsp; 2025</p>
+  <p>ALEX SOROKIN &nbsp;//&nbsp; CYBER SECURITY ENGINEER &nbsp;//&nbsp; ISRAEL &nbsp;//&nbsp; 2026</p>
 </footer>
 
 <!-- BACKGROUND LAYERS -->
