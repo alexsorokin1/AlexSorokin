@@ -143,7 +143,7 @@
 
   /* PROJECTS */
   .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 2px; }
-  .project-card { position: relative; background: var(--bg2); border: 1px solid rgba(245,230,66,0.1); padding: 32px 36px; transition: border-color 0.3s, background 0.3s; overflow: hidden; }
+  .project-card { position: relative; background: var(--bg2); border: 1px solid rgba(245,230,66,0.1); padding: 32px 36px; transition: border-color 0.3s, background 0.3s; overflow: hidden; display: flex; flex-direction: column; }
   .project-card:hover { border-color: rgba(245,230,66,0.35); background: var(--bg3); }
   .project-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--yellow); opacity: 0; transition: opacity 0.3s; }
   .project-card:hover::before { opacity: 1; }
@@ -156,8 +156,30 @@
   .project-desc { list-style: none; display: flex; flex-direction: column; gap: 6px; margin-bottom: 20px; }
   .project-desc li { font-size: 16.5px; color: #7A8A9A; padding-left: 16px; position: relative; }
   .project-desc li::before { content: '›'; position: absolute; left: 0; color: var(--yellow); font-weight: bold; }
-  .project-stack { display: flex; flex-wrap: wrap; gap: 6px; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 16px; }
+  .project-stack { display: flex; flex-wrap: wrap; gap: 6px; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 16px; margin-top: auto; }
   .project-tag { font-family: 'Share Tech Mono', monospace; font-size: 11px; color: var(--dim); border: 1px solid rgba(255,255,255,0.07); padding: 3px 8px; letter-spacing: 1px; }
+
+  /* collapsed long project descriptions */
+  .project-desc li.desc-hidden { display: none; }
+  .project-more-btn {
+    display: block;
+    width: 100%;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--cyan);
+    background: rgba(0,245,255,0.04);
+    border: 1px solid rgba(0,245,255,0.25);
+    padding: 8px 12px;
+    margin: -4px 0 20px;
+    cursor: pointer;
+    clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+    transition: background 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s;
+  }
+  .project-more-btn:hover { background: rgba(0,245,255,0.12); border-color: var(--cyan); box-shadow: 0 0 12px rgba(0,245,255,0.25); }
+  .project-more-btn.open { color: var(--yellow); border-color: rgba(245,230,66,0.4); background: rgba(245,230,66,0.05); }
+  .project-more-btn.open:hover { border-color: var(--yellow); box-shadow: 0 0 12px rgba(245,230,66,0.25); }
 
   /* PROJECT CAROUSEL */
   .project-carousel { position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; background: #000; border: 1px solid rgba(0,245,255,0.15); margin-bottom: 20px; }
@@ -1238,6 +1260,30 @@ document.querySelectorAll('[data-carousel]').forEach(carousel => {
   } else {
     startAutoplay();
   }
+});
+
+// ── PROJECT "CLICK FOR MORE" (clamps long descriptions so cards stay even) ───
+document.querySelectorAll('.project-card').forEach(card => {
+  const desc = card.querySelector('.project-desc');
+  if (!desc) return;
+  const VISIBLE = 4;
+  const extra = Array.from(desc.querySelectorAll('li')).slice(VISIBLE);
+  if (!extra.length) return;
+
+  extra.forEach(li => li.classList.add('desc-hidden'));
+
+  const btn = document.createElement('button');
+  btn.className = 'project-more-btn';
+  btn.textContent = `▾ Click for more [+${extra.length}]`;
+  btn.setAttribute('aria-expanded', 'false');
+  desc.insertAdjacentElement('afterend', btn);
+
+  btn.addEventListener('click', () => {
+    const open = btn.classList.toggle('open');
+    extra.forEach(li => li.classList.toggle('desc-hidden', !open));
+    btn.textContent = open ? '▴ Show less' : `▾ Click for more [+${extra.length}]`;
+    btn.setAttribute('aria-expanded', String(open));
+  });
 });
 
 // ── ALFRED DEMO WIDGET (self-contained, no backend -- auto-cycles through
