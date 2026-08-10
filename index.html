@@ -942,6 +942,7 @@
         <li>Re-architected from a local-mic script into a Dockerized client-server system: a FastAPI backend runs wake-word detection and the Gemini session, while the browser acts as mic, camera, and speaker -- deployed on the UnRAID server, usable from any device on the network</li>
         <li>Trained a custom "Alfred" wake-word model from scratch: synthetic TTS-generated speech samples, noise/room-impulse augmentation, and a small classifier exported to ONNX via openWakeWord -- now running server-side against the browser's mic stream</li>
         <li>Gave it real long-term memory: every conversation lands in SQLite, a background model distills durable facts injected into future sessions, and in-conversation remember/forget function tools let Alfred manage what he knows -- all reviewable in a "What Alfred Knows" panel</li>
+        <li>Refactored the tool layer into a single registry and grew it into a 17-tool capability suite: smart home control (TP-Link Kasa), Google Search grounding, YouTube playback, image generation, maps, weather, persistent timers/reminders, dictated notes, system telemetry, and Google Calendar with one-time OAuth -- each tool can push its own holographic window onto the HUD via a WebSocket event channel</li>
         <li>Built a guided interview-practice mode: Alfred conducts behavioural, technical, or HR mock interviews in character -- one question at a time with coaching after each answer, including presence and body-language feedback when the camera is on</li>
         <li>Hardened it for network exposure: removed the earlier self-code-editing tools when the assistant became a hosted service (a network-facing app shouldn't rewrite itself), scoped it down to narrow memory-only tools, and added auto-generated self-signed TLS so mic/camera capture works securely from any LAN device</li>
         <li>Diagnosed and fixed a self-feedback loop where the assistant replied to its own voice -- solved via mic gating, server-side VAD sensitivity tuning, and the API's official interruption signal</li>
@@ -958,6 +959,89 @@
         <span class="project-tag">WebSocket</span>
         <span class="project-tag">Web Audio API</span>
         <span class="project-tag">TLS</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-header">
+        <div class="project-name">Klipper // AI Video Clipper</div>
+        <div class="project-status">● SELF-HOSTED</div>
+      </div>
+      <div class="project-subtitle">// FASTAPI + WHISPER + FFMPEG</div>
+      <div class="project-carousel" data-carousel>
+        <div class="carousel-track">
+          <div class="carousel-slide">
+            <img src="Klipper-1.PNG" alt="Klipper web UI" onerror="handleImgError(this)">
+            <div class="carousel-slide-caption">Klipper Web UI</div>
+          </div>
+          <div class="carousel-slide">
+            <img src="Klipper-2.PNG" alt="Klipper clip output" onerror="handleImgError(this)">
+            <div class="carousel-slide-caption">Captioned Clip Output</div>
+          </div>
+          <div class="carousel-slide">
+            <img src="Klipper-3.PNG" alt="Klipper pipeline run" onerror="handleImgError(this)">
+            <div class="carousel-slide-caption">Pipeline Run</div>
+          </div>
+        </div>
+        <button class="carousel-btn carousel-prev" aria-label="Previous image">‹</button>
+        <button class="carousel-btn carousel-next" aria-label="Next image">›</button>
+        <div class="carousel-dots"></div>
+      </div>
+      <ul class="project-desc">
+        <li>Built an OpusClip-style service that turns long-form video into caption-burned vertical clips: Whisper transcription, automatic clip selection, 9:16 reframing, and styled subtitle rendering via FFmpeg</li>
+        <li>FastAPI backend with a SQLite-backed job queue and background pipeline workers -- runs fully on-prem as a Docker container on the UnRAID server (CPU-only, no cloud video processing)</li>
+        <li>Face-aware reframing keeps the speaker centered when cropping widescreen footage down to vertical</li>
+        <li>Orchestrated end-to-end by n8n and a Telegram bot: send a video, get finished clips back in chat</li>
+        <li>Clean dev/prod split: pure-logic pytest suite runs on the Windows dev box, while the media pipeline (ffmpeg/whisper/mediapipe) is validated in Docker on UnRAID</li>
+      </ul>
+      <div class="project-stack">
+        <span class="project-tag">Python / FastAPI</span>
+        <span class="project-tag">Whisper</span>
+        <span class="project-tag">FFmpeg</span>
+        <span class="project-tag">MediaPipe</span>
+        <span class="project-tag">SQLite</span>
+        <span class="project-tag">Docker / UnRAID</span>
+        <span class="project-tag">n8n</span>
+        <span class="project-tag">Telegram Bot</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-header">
+        <div class="project-name">YouTube Shorts Factory</div>
+        <div class="project-status">● AUTOMATED</div>
+      </div>
+      <div class="project-subtitle">// N8N + GEMINI + VOICE-CLONE TTS</div>
+      <div class="project-carousel" data-carousel>
+        <div class="carousel-track">
+          <div class="carousel-slide">
+            <img src="Shorts-1.PNG" alt="n8n shorts workflow" onerror="handleImgError(this)">
+            <div class="carousel-slide-caption">n8n Workflow</div>
+          </div>
+          <div class="carousel-slide">
+            <img src="Shorts-2.PNG" alt="Finished YouTube Short" onerror="handleImgError(this)">
+            <div class="carousel-slide-caption">Finished Short</div>
+          </div>
+        </div>
+        <button class="carousel-btn carousel-prev" aria-label="Previous image">‹</button>
+        <button class="carousel-btn carousel-next" aria-label="Next image">›</button>
+        <div class="carousel-dots"></div>
+      </div>
+      <ul class="project-desc">
+        <li>Fully automated YouTube Shorts pipeline: submit a question, an image folder, and a short reference voice recording -- a finished narrated 1080x1920 Short arrives in Telegram</li>
+        <li>Gemini writes a hook-first voiceover script, then a self-hosted Chatterbox TTS sidecar clones the reference voice and narrates it -- no cloud TTS, everything on-prem</li>
+        <li>FFmpeg assembles the images into video with Ken Burns zoom and crossfade transitions, timed to the generated narration</li>
+        <li>Built a custom n8n Docker image with FFmpeg baked in plus a FastAPI TTS microservice, deployed together with docker compose on an Ubuntu VM</li>
+        <li>Iterated to a v2 "image-aware" workflow where the script generation takes the available artwork into account</li>
+      </ul>
+      <div class="project-stack">
+        <span class="project-tag">n8n</span>
+        <span class="project-tag">Gemini API</span>
+        <span class="project-tag">Chatterbox TTS</span>
+        <span class="project-tag">Voice Cloning</span>
+        <span class="project-tag">FFmpeg</span>
+        <span class="project-tag">Docker Compose</span>
+        <span class="project-tag">Telegram Bot</span>
       </div>
     </div>
 
