@@ -270,6 +270,7 @@
   .carousel-track { display: flex; height: 100%; transition: transform 0.45s cubic-bezier(0.65,0,0.35,1); }
   .carousel-slide { flex: 0 0 100%; height: 100%; position: relative; }
   .carousel-slide img { width: 100%; height: 100%; object-fit: cover; display: block; filter: saturate(0.85) brightness(0.95); }
+  .carousel-slide iframe { width: 100%; height: 100%; border: 0; display: block; background: #000; }
   .carousel-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; text-align: center; padding: 16px; background: repeating-linear-gradient(45deg, rgba(0,245,255,0.035) 0 10px, rgba(0,245,255,0.07) 10px 20px); color: var(--dim); font-family: 'Share Tech Mono', monospace; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; }
   .carousel-slide-caption { position: absolute; left: 10px; bottom: 8px; font-family: 'Share Tech Mono', monospace; font-size: 9px; color: var(--cyan); letter-spacing: 1.5px; text-transform: uppercase; text-shadow: 0 0 6px rgba(0,245,255,0.6); background: rgba(6,8,16,0.55); padding: 3px 8px; z-index: 2; }
   .carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); width: 30px; height: 30px; background: rgba(6,8,16,0.65); border: 1px solid rgba(0,245,255,0.3); color: var(--cyan); display: flex; align-items: center; justify-content: center; cursor: pointer; font-family: 'Share Tech Mono', monospace; font-size: 13px; z-index: 3; transition: background 0.2s, border-color 0.2s, color 0.2s; }
@@ -975,7 +976,7 @@
             <div class="carousel-slide-caption">Klipper Web UI</div>
           </div>
           <div class="carousel-slide">
-            <img src="Klipper-2.mpg" alt="Klipper clip output" onerror="handleImgError(this)">
+            <iframe src="https://www.youtube.com/embed/8XTyBMGMMoY" title="Klipper captioned clip output" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             <div class="carousel-slide-caption">Captioned Clip Output</div>
           </div>
           <div class="carousel-slide">
@@ -1019,7 +1020,7 @@
             <div class="carousel-slide-caption">n8n Workflow</div>
           </div>
           <div class="carousel-slide">
-            <img src="Shorts-2.PNG" alt="Finished YouTube Short" onerror="handleImgError(this)">
+            <iframe src="https://www.youtube.com/embed/Ge_fAZVZUfQ" title="Finished YouTube Short" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             <div class="carousel-slide-caption">Finished Short</div>
           </div>
         </div>
