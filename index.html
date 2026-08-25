@@ -854,6 +854,55 @@
 
     <div class="project-card">
       <div class="project-header">
+        <div class="project-name">Homelab ITDR Platform</div>
+        <div class="project-status">● SELF-HOSTED</div>
+      </div>
+      <div class="project-subtitle">// KEYCLOAK IdP + AI TRIAGE + HUMAN-IN-THE-LOOP</div>
+      <div class="project-carousel" data-carousel>
+        <div class="carousel-track">
+          <div class="carousel-slide">
+            <img src="ITDR-Flow.png" alt="ITDR architecture: detect, investigate, respond" onerror="handleImgError(this)">
+            <div class="carousel-slide-caption">Detect → Investigate → Respond</div>
+          </div>
+          <div class="carousel-slide">
+            <img src="ITDR-NOC.png" alt="Grafana Identity NOC dashboard" onerror="handleImgError(this)">
+            <div class="carousel-slide-caption">Grafana Identity NOC</div>
+          </div>
+          <div class="carousel-slide">
+            <img src="ITDR-Telegram.png" alt="Telegram approval prompt" onerror="handleImgError(this)">
+            <div class="carousel-slide-caption">Telegram Approval Gate</div>
+          </div>
+        </div>
+        <button class="carousel-btn carousel-prev" aria-label="Previous image">‹</button>
+        <button class="carousel-btn carousel-next" aria-label="Next image">›</button>
+        <div class="carousel-dots"></div>
+      </div>
+      <ul class="project-desc">
+        <li>Built a self-hosted Identity Threat Detection &amp; Response platform around a real Keycloak IdP — the lab's SSO plane for Grafana and n8n — wrapping it in a full detect → investigate → respond loop</li>
+        <li>Wrote a Python detection engine that polls Keycloak's event API for identity attacks (password spray, MFA hammering, impossible travel, dormant-admin revival, token replay), streaming normalized events to VictoriaLogs with a Grafana "Identity NOC" dashboard</li>
+        <li>Built an LLM triage agent (FastAPI + Gemini) that pulls identity context from Keycloak, writes analyst-grade case narratives, scores severity, and recommends the least-invasive containment — with a deterministic rule-based fallback when the LLM is rate-limited</li>
+        <li>Bounded the agent's autonomy by design: the model emits only schema-constrained recommendations from four fixed, reversible Keycloak actions (revoke sessions, disable user, force password reset, require OTP) — it can never free-form act on the IdP</li>
+        <li>Gated every state-changing action through an n8n → Telegram human approval with single-use tokens — the agent physically cannot disable an account without a tapped approval carrying a valid token</li>
+        <li>Exposed the identity plane over a custom Keycloak MCP server so Claude can operate it conversationally ("any failed logins in the last hour?"), with the one mutating tool refusing to fire without explicit confirmation</li>
+        <li>Wrote a lab-scoped purple-team attack harness that generates the telemetry driving the pipeline — every script hard-guarded to only ever target the lab IdP</li>
+        <li>Demonstrated the full loop end to end: an impossible-travel login on a privileged admin → AI flags account takeover → Telegram approval → account disabled at the IdP → downstream Grafana access dies, all reversible from the console</li>
+      </ul>
+      <div class="project-stack">
+        <span class="project-tag">Keycloak / OIDC</span>
+        <span class="project-tag">Python / FastAPI</span>
+        <span class="project-tag">Gemini API</span>
+        <span class="project-tag">VictoriaLogs</span>
+        <span class="project-tag">Grafana</span>
+        <span class="project-tag">n8n</span>
+        <span class="project-tag">Telegram Bot</span>
+        <span class="project-tag">MCP Server</span>
+        <span class="project-tag">Docker / UnRAID</span>
+        <span class="project-tag">Detection Engineering</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-header">
         <div class="project-name">Home Server &amp; Media Stack</div>
         <div class="project-status">● SELF-HOSTED</div>
       </div>
